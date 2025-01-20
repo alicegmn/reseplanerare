@@ -1,50 +1,52 @@
-# React + TypeScript + Vite
+# Reseplaneraren
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Starta applikationen lokalt
 
-Currently, two official plugins are available:
+Följ dessa steg för att starta applikationen lokalt med terminalen:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1. **Klona projektet från GitHub**
 
-## Expanding the ESLint configuration
+   ```bash
+   git clone <repo-url>
+   ```
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+   Byt ut `<repo-url>` mot URL:en till GitHub-repot.
 
-- Configure the top-level `parserOptions` property like this:
+2. **Navigera till projektmappen**
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+   ```bash
+   cd <mappnamn>
+   ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+   Byt ut `<mappnamn>` mot mappen som innehåller projektet.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+3. **Installera beroenden**
+   På grund av att det finns en `package-lock.json`, kör följande kommando:
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+   ```bash
+   npm install
+   ```
+
+4. **Starta utvecklingsservern**
+
+   ```bash
+   npm run dev
+   ```
+
+5. **Öppna utvecklingsservern i webbläsaren**
+   När servern startar visas en URL i terminalen som ser ut ungefär så här:
+   ```
+   http://localhost:5173
+   ```
+   Öppna den URL:en i din webbläsare.
+
+---
+
+## Använda applikationen
+
+I **Reseplaneraren** kan du:
+
+- Skriva in dina resplaner och samla dem i en lista för att komma ihåg dem.
+- Ange namn, datum och plats för varje resplan.
+
+Denna funktionalitet hjälper dig att organisera och hålla koll på dina kommande resor på ett enkelt sätt.
