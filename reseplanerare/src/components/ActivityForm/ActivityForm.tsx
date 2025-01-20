@@ -7,17 +7,22 @@ type Activity = {
   location: string;
 };
 
+// Props for ActivityForm component
+// Includes a function to handle adding a new activity
 type ActivityFormProps = {
   onAddActivity: (activity: Activity) => void;
 };
 
+// Functional component to render a form for adding new activities
 function ActivityForm({ onAddActivity }: ActivityFormProps) {
+  // State to manage form data
   const [formData, setFormData] = useState({
     name: "",
     date: "",
     location: "",
   });
 
+  // Handle changes in form inputs
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -26,24 +31,32 @@ function ActivityForm({ onAddActivity }: ActivityFormProps) {
     }));
   };
 
+  // Handle form submission
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent page reload
+
+    // Check if all fields are filled
     if (!formData.name || !formData.date || !formData.location) {
       alert("Alla fält måste fyllas i!");
       return;
     }
 
+    // Create a new activity object with a unique ID
     const newActivity: Activity = {
       id: Date.now(),
       ...formData,
     };
 
+    // Pass the new activity to the parent component
     onAddActivity(newActivity);
+
+    // Reset form fields
     setFormData({ name: "", date: "", location: "" });
   };
 
   return (
     <form onSubmit={handleSubmit}>
+      {/* Input field for activity name */}
       <div>
         <label htmlFor="name">Aktivitetens namn:</label>
         <input
@@ -55,6 +68,8 @@ function ActivityForm({ onAddActivity }: ActivityFormProps) {
           required
         />
       </div>
+
+      {/* Input field for activity date */}
       <div>
         <label htmlFor="date">Datum:</label>
         <input
@@ -66,6 +81,8 @@ function ActivityForm({ onAddActivity }: ActivityFormProps) {
           required
         />
       </div>
+
+      {/* Input field for activity location */}
       <div>
         <label htmlFor="location">Plats:</label>
         <input
@@ -77,6 +94,8 @@ function ActivityForm({ onAddActivity }: ActivityFormProps) {
           required
         />
       </div>
+
+      {/* Submit button */}
       <button type="submit">Lägg till aktivitet</button>
     </form>
   );
