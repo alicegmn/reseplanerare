@@ -8,7 +8,6 @@ type Activity = {
 };
 
 // Props for ActivityForm component
-// Includes a function to handle adding a new activity
 type ActivityFormProps = {
   onAddActivity: (activity: Activity) => void;
 };
@@ -16,11 +15,23 @@ type ActivityFormProps = {
 // Functional component to render a form for adding new activities
 function ActivityForm({ onAddActivity }: ActivityFormProps) {
   // State to manage form data
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<
+    Pick<Activity, "name" | "date" | "location">
+  >({
     name: "",
     date: "",
     location: "",
   });
+
+  // Labels and types for form fields
+  const fieldLabels: Record<
+    keyof typeof formData,
+    { label: string; type: string }
+  > = {
+    name: { label: "Aktivitetens namn", type: "text" },
+    date: { label: "Datum", type: "date" },
+    location: { label: "Plats", type: "text" },
+  };
 
   // Handle changes in form inputs
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,8 +46,8 @@ function ActivityForm({ onAddActivity }: ActivityFormProps) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault(); // Prevent page reload
 
-    // Check if all fields are filled
-    if (!formData.name || !formData.date || !formData.location) {
+    // Validate form data
+    if (Object.values(formData).some((value) => !value)) {
       alert("Alla fält måste fyllas i!");
       return;
     }
@@ -56,46 +67,19 @@ function ActivityForm({ onAddActivity }: ActivityFormProps) {
 
   return (
     <form onSubmit={handleSubmit}>
-      {/* Input field for activity name */}
-      <div>
-        <label htmlFor="name">Aktivitetens namn:</label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-          required
-        />
-      </div>
-
-      {/* Input field for activity date */}
-      <div>
-        <label htmlFor="date">Datum:</label>
-        <input
-          type="date"
-          id="date"
-          name="date"
-          value={formData.date}
-          onChange={handleChange}
-          required
-        />
-      </div>
-
-      {/* Input field for activity location */}
-      <div>
-        <label htmlFor="location">Plats:</label>
-        <input
-          type="text"
-          id="location"
-          name="location"
-          value={formData.location}
-          onChange={handleChange}
-          required
-        />
-      </div>
-
-      {/* Submit button */}
+      {Object.entries(fieldLabels).map(([key, { label, type }]) => (
+        <div key={key}>
+          <label htmlFor={key}>{label}:</label>
+          <input
+            type={type}
+            id={key}
+            name={key}
+            value={formData[key as keyof typeof formData]}
+            onChange={handleChange}
+            required
+          />
+        </div>
+      ))}
       <button type="submit">Lägg till aktivitet</button>
     </form>
   );

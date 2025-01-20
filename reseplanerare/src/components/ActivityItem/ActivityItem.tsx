@@ -1,20 +1,24 @@
 // Define props type for ActivityItem
 type ActivityItemProps = {
-  name: string;
-  date: string;
-  location: string;
+  activity: {
+    id: number;
+    name: string;
+    date: string;
+    location: string;
+  };
+  onDelete: (id: number) => void;
 };
 
 // Functional component to render a single activity item
-// Takes name, date, and location as props
-function ActivityItem({ name, date, location }: ActivityItemProps) {
+function ActivityItem({ activity, onDelete }: ActivityItemProps) {
+  const { id, name, date, location } = activity;
+
   return (
     <li>
-      Aktivitet: {name}
-      <br />
-      Datum: {date}
-      <br />
-      Plats: {location}
+      <div>Aktivitet: {name}</div>
+      <div>Datum: {date}</div>
+      <div>Plats: {location}</div>
+      <button onClick={() => onDelete(id)}>Ta bort aktivitet</button>
     </li>
   );
 }

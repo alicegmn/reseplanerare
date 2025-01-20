@@ -22,6 +22,10 @@ function App() {
     setActivities((prev) => [...prev, activity]);
   }
 
+  const handleDeleteActivity = (id: number) => {
+    setActivities((prev) => prev.filter((activity) => activity.id !== id));
+  };
+
   return (
     <div>
       <Header />
@@ -30,7 +34,7 @@ function App() {
       <ActivityForm onAddActivity={handleAddActivity} />
 
       {/* Renders the activity list component, passing down the list of activities */}
-      <ActivityList activities={activities} />
+      <ActivityList activities={activities} onDelete={handleDeleteActivity} />
 
       <Footer />
     </div>

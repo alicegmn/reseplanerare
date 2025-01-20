@@ -8,26 +8,31 @@ type Activity = {
   location: string;
 };
 
+type ActivityListProps = {
+  activities: Activity[];
+  onDelete: (id: number) => void; // Prop för att ta bort en aktivitet
+};
+
 // Functional component to render a list of activities
-// Takes an array of activities as a prop
-function ActivityList({ activities }: { activities: Activity[] }) {
+function ActivityList({ activities, onDelete }: ActivityListProps) {
   // Check if the activities list is empty
   if (activities.length === 0) {
     // Render a message if no activities have been added
-    return <p>Du har lagt till några aktiviteter i din resaplanerare ännu.</p>;
+    return (
+      <p>Du har inte lagt till några aktiviteter i din reseplanerare ännu.</p>
+    );
   }
 
   return (
     <div>
       <h2>Dina reseplaner</h2>
-      {/* Renders the list of ActivityItem components */}
+      {/* Render the list of ActivityItem components */}
       <ul>
         {activities.map((activity) => (
           <ActivityItem
             key={activity.id}
-            name={activity.name}
-            date={activity.date}
-            location={activity.location}
+            activity={activity} // Pass the entire activity object
+            onDelete={onDelete}
           />
         ))}
       </ul>
