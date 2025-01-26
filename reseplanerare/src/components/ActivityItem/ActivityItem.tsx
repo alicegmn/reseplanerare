@@ -6,22 +6,35 @@ interface Props {
   editActivity(activityIdToEdit: Number): void;
 }
 
-const ActivityItem = ({ activity, deleteActivity, editActivity }: Props) => {
 
+const ActivityItem = ({ activity, deleteActivity, editActivity }: Props) => {
   return (
     <div className="activity">
+      {/* Aktivitetens detaljer */}
       <div className="content">
-        <span>{activity.type}</span>
-        <span>{activity.name}</span>
-        <span>{activity.date}</span>
-        <span>{activity.location}</span>
+        <span><h2>{activity.name}</h2></span>
+        <span><strong>Datum:</strong> {activity.date}</span>
+        <span><strong>Plats:</strong> {activity.location}</span>
+        <span>#{activity.type}</span>
       </div>
+
+      {/* Knappar */}
       <div className="buttons">
-        <button onClick={() => {deleteActivity(activity.id)}}>Radera</button>
-        <button onClick={() => {editActivity(activity.id)}}>Redigera</button>
+        <button
+          className="delete-button"
+          onClick={() => deleteActivity(activity.id)}
+        >
+          Radera 🗑️
+        </button>
+        <button
+          className="edit-button"
+          onClick={() => editActivity(activity.id)}
+        >
+         Redigera ✏️
+        </button>
       </div>
     </div>
   );
-}
+};
 
 export default ActivityItem;

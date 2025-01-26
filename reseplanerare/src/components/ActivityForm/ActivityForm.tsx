@@ -3,6 +3,7 @@ import { IActivity } from "../../interfaces/interfaces";
 import ActivityItem from "../ActivityItem/ActivityItem";
 
 const ActivityForm = () => {
+  const [errorMessage, setErrorMessage] = useState<string>("");
   const [type, setType] = useState<string>("");
   const [activity, setActivity] = useState<string>("");
   const [location, setLocation] = useState<string>("");
@@ -11,19 +12,27 @@ const ActivityForm = () => {
   const [editingId, setEditingId] = useState<number | null>(null);
 
   useEffect(() => {
-    try {
-      const storedActivities = localStorage.getItem("activityList");
-      if (storedActivities) {
-        setActivityList(JSON.parse(storedActivities));
+    const storedActivities = localStorage.getItem("activityList");
+    if (storedActivities) {
+      try {
+        const parsedActivities = JSON.parse(storedActivities);
+        console.log("Hämtade aktiviteter från localStorage:", parsedActivities);
+        setActivityList(parsedActivities);
+      } catch (error) {
+        console.error("Fel vid JSON-parsning från localStorage:", error);
       }
-    } catch (error) {
-      console.error("Fel vid läsning av aktiviteter från localStorage:", error);
     }
   }, []);
 
-  useEffect(() => {
+
+
+useEffect(() => {
+  if (activityList.length > 0) {
     localStorage.setItem("activityList", JSON.stringify(activityList));
-  }, [activityList]);
+  }
+}, [activityList]);
+
+
 
   const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>): void => {
     if (event.target.name === "activity") {
@@ -38,6 +47,13 @@ const ActivityForm = () => {
   };
 
   const addActivity = (): void => {
+
+    if (!type.trim() || !activity.trim() || !location.trim() || !date.trim()) {
+      setErrorMessage("Fyll i alla fält.");
+      return;
+    }
+    setErrorMessage("");
+  
     if (editingId !== null) {
       setActivityList(
         activityList.map((item) =>
@@ -46,23 +62,25 @@ const ActivityForm = () => {
             : item
         )
       );
-
       setEditingId(null);
     } else {
-    const newActivity = {
-      id: Date.now(),
-      type: type,
-      name: activity,
-      date: date,
-      location: location,
-    };
-    setActivityList([...activityList, newActivity]);
-  }
+      const newActivity = {
+        id: Date.now(),
+        type: type,
+        name: activity,
+        date: date,
+        location: location,
+      };
+      setActivityList([...activityList, newActivity]);
+
+    }
+
     setType("");
     setActivity("");
     setLocation("");
     setDate("");
   };
+  
 
   const editActivity = (id: number): void => {
     const activityToEdit = activityList.find((item) => item.id === id);
@@ -81,60 +99,75 @@ const ActivityForm = () => {
 
   return (
     <>
-    <div className="header">
-    <form className="activityForm">
-    <select
-            id="type"
-            name="type"
-            value={type}
-            onChange={handleChange}
-            required
-          >
-            <option value="" disabled>
-              Välj typ
-            </option>
-            <option value="Resa">Resa</option>
-            <option value="Aktivitet">Aktivitet</option>
-          </select>
-      <input
-        type="text"
-        id="activity"
-        name="activity"
-        value={activity}
-        placeholder="Namnge aktiviteten"
-        onChange={handleChange}
-        required
-      />
-      <input
-        type="text"
-        id="location"
-        name="location"
-        value={location}
-        placeholder="Ange plats för aktiviteten"
-        onChange={handleChange}
-        required
-      />
-      <input
-        type="date"
-        id="date"
-        name="date"
-        placeholder="Ange datum för aktiviteten"
-        value={date}
-        onChange={handleChange}
-        required
-      />
-      <button type="button" onClick={addActivity}>
-        {editingId !== null ? "Uppdatera aktivitet" : "Lägg till aktivitet"}
-      </button>
-    </form>
-    </div>
+ <div className="header">
+  <form className="activityForm">
+    <input
+      type="text"
+      id="activity"
+      name="activity"
+      value={activity}
+      placeholder="Namnge aktiviteten"
+      onChange={handleChange}
+      required
+    />
+    <input
+      type="text"
+      id="location"
+      name="location"
+      value={location}
+      placeholder="Ange plats för aktiviteten"
+      onChange={handleChange}
+      required
+    />
+    <input
+      type="date"
+      id="date"
+      name="date"
+      value={date}
+      onChange={handleChange}
+      required
+    />
+        <select
+      id="category"
+      name="type"
+      value={type}
+      onChange={handleChange}
+      required
+    >
+      <option value="" disabled>
+        Kategori
+      </option>
+      <option value="Resa">Resa</option>
+      <option value="Aktivitet">Aktivitet</option>
+      <option value="Mål">Mål</option>
+      <option value="Att göra">Att göra</option>
+    </select>
+    <button type="button" onClick={addActivity}>
+      {editingId !== null ? "Uppdatera aktivitet" : "Lägg till aktivitet"}
+    </button>
+  </form>
+  {errorMessage && <p className="error-message">{errorMessage}</p>}
+</div>
 
-    <div className="activityList">
-      {activityList.map((activity: IActivity, key: number) => {
-        return <ActivityItem key={key} activity={activity} editActivity={editActivity} deleteActivity={deleteActivity}/>;
+<div className="activityList">
+  {activityList.length > 0 ? (
+    activityList
+      .slice()
+      .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()) // Sortera på datum
+      .map((activity: IActivity, key: number) => (
+        <ActivityItem
+          key={key}
+          activity={activity}
+          editActivity={editActivity}
+          deleteActivity={deleteActivity}
+        />
+      ))
+  ) : (
+    <p>Du har inga inplanerade resor eller aktiviteter att visa.</p>
+  )}
+</div>
 
-      })}
-      </div>
+
     </>
   );
 }

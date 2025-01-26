@@ -1,127 +1,203 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #f9f9f9;
+}
+
 .App {
   display: flex;
   align-items: center;
   flex-direction: column;
   width: 100vw;
   height: 100vh;
-  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  overflow-x: hidden;
 }
 
-body {
-  margin: 0%;
-  padding: 0%;
-}
 
 .header {
   margin: 0;
+  padding: 5%;
   flex: 30%;
   background-color: pink;
   width: 100%;
+  height: 180px;
   display: flex;
-  position: fixed;
   justify-content: center;
   align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  z-index: 10;
 }
 
 .activityForm {
   display: flex;
-  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.header .inputContainer {
-  display: flex;
-  flex-direction: column;
-}
-
-.activityForm input {
-  width: 200px;
+.activityForm input,
+.activityForm select,
+.activityForm button {
+  flex: 1 1 18%;
+  min-width: 150px;
   height: 40px;
-  border: none;
-  border-bottom-left-radius: 8px;
-  border-top-left-radius: 8px;
-  padding-left: 10px;
-  font-size: 17px;
-  border: 1px solid grey;
+  padding: 0 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.activityForm input:focus,
+.activityForm select:focus,
+.activityForm button:focus {
+  border-color: hotpink;
+  box-shadow: 0 4px 8px rgba(255, 105, 180, 0.3);
 }
 
 .activityForm button {
-  width: 70px;
-  height: 87px;
-  border: none;
-  border-bottom-right-radius: 8px;
-  border-top-right-radius: 8px;
-  padding-left: 10px;
+  background-color: hotpink;
+  color: white;
+  font-weight: bold;
   cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.activityForm button:hover {
+  background-color: #ff66b2;
 }
 
 .activityList {
-  flex: 70%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
   width: 100%;
-  display: flex;
-  align-items: center;
-  padding-top: 5%;
-  flex-direction: column;  
-  background-color: blue;
+  max-width: 1200px;
+  padding: 200px 20px 20px;
+  box-sizing: border-box;
 }
 
 .activity {
-  width: 500px;
-  height: 50px;
   display: flex;
-  color: black;
-  margin: 15px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: left;
+  width: 100%;
+  height: auto;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 15px;
 }
 
 .activity .content {
-  flex: 80%;
-  height: 100%;
+  flex: 1;
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
+  gap: 8px;
 }
 
 .activity .content span {
-  display: grid;
-  place-items: center;
-  border: 2px solid hotpink;
-  width: 100%;
-  height: 100%;
-  font-size: 18px;
-  border-right: none;
-  background-color: white;
+  font-size: 14px;
+  color: #333;
+  line-height: 1.4;
+}
+
+.activity .buttons {
+  display: flex;
+  gap: 10px; /* Mellanrum mellan knapparna */
+  margin-top: 10px;
 }
 
 .activity button {
-  flex: 20%;
-  height: 100%;
+  flex: 1;
   border: none;
-  background-color: hotpink;
-  border-top-right-radius: 8px;
-  border-bottom-right-radius: 8px;
-  color: white;
+  border-radius: 5px;
+  padding: 8px;
+  font-size: 14px;
+  font-weight: bold;
   cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.activity button:focus {
+  outline: none;
+}
+
+.activity .delete-button {
+  background-color: #ff4d4d;
+  color: #fff;
+}
+
+.activity .delete-button:hover {
+  background-color: #ff1a1a;
+  transform: scale(1.05);
+}
+
+.activity .edit-button {
+  background-color: #4caf50;
+  color: #fff;
+}
+
+.activity .edit-button:hover {
+  background-color: #45a049;
+  transform: scale(1.05);
 }
 
 .footer {
   position: fixed;
-  right: 5px;
-  bottom: 5px;
-  height: 100px;
-  width: 100px;
-  border-radius: 100%;
+  right: 20px;
+  bottom: 20px;
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
   background-color: pink;
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 18px;
+  font-weight: bold;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.3s ease;
   padding: 1rem;
-  font-size: 20px;
-  font-weight: bolder;
+}
+
+.footer:hover {
+  transform: scale(1.1);
 }
 
 .footer a {
-  color: blue;
+  color: hotpink;
+  text-decoration: none;
 }
 
-.footer a:hover {
-  color: hotpink;
+.error-message {
+  color: black;
+  font-style: oblique;
+  font-size: 30px;
+  margin-top: 5px;
+}
+
+
+@media (max-width: 768px) {
+  .activityForm {
+    margin-top: auto;
+  }
 }
