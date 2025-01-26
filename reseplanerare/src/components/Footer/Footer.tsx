@@ -2,7 +2,7 @@ function Footer() {
   return (
     <div className="footer">
       <a href="https://github.com/alicegmn" target="_blank">
-        Made by alicegmn
+        alicegmn
       </a>
     </div>
   );

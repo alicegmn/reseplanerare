@@ -1,44 +1,16 @@
-import React, { useState } from "react";
 import "./index.css";
-import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import ActivityForm from "./components/ActivityForm/ActivityForm";
-import ActivityList from "./components/ActivityList/ActivityList";
 
-// Type definition for an activity object
-type Activity = {
-  id: number;
-  name: string;
-  date: string;
-  location: string;
-};
+const App = () => {
+ 
+   return (
+     <div className="App">
+       <ActivityForm />
+       <Footer />
+     </div>
+   );
 
-function App() {
-  // State to hold the list of activities
-  const [activities, setActivities] = useState<Activity[]>([]);
-
-  // Adds the new activity to the current list of activities
-  function handleAddActivity(activity: Activity) {
-    setActivities((prev) => [...prev, activity]);
-  }
-
-  const handleDeleteActivity = (id: number) => {
-    setActivities((prev) => prev.filter((activity) => activity.id !== id));
-  };
-
-  return (
-    <div>
-      <Header />
-
-      {/* Renders the activity form component, passing down the add activity handler */}
-      <ActivityForm onAddActivity={handleAddActivity} />
-
-      {/* Renders the activity list component, passing down the list of activities */}
-      <ActivityList activities={activities} onDelete={handleDeleteActivity} />
-
-      <Footer />
-    </div>
-  );
 }
 
 export default App;

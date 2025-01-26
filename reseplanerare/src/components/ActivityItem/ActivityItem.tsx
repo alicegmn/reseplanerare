@@ -1,25 +1,26 @@
-// Define props type for ActivityItem
-type ActivityItemProps = {
-  activity: {
-    id: number;
-    name: string;
-    date: string;
-    location: string;
-  };
-  onDelete: (id: number) => void;
-};
+import { IActivity } from "../../interfaces/interfaces";
 
-// Functional component to render a single activity item
-function ActivityItem({ activity, onDelete }: ActivityItemProps) {
-  const { id, name, date, location } = activity;
+interface Props {
+  activity: IActivity;
+  deleteActivity(activityIdToDelete: Number): void;
+  editActivity(activityIdToEdit: Number): void;
+}
+
+const ActivityItem = ({ activity, deleteActivity, editActivity }: Props) => {
 
   return (
-    <li>
-      <div>Aktivitet: {name}</div>
-      <div>Datum: {date}</div>
-      <div>Plats: {location}</div>
-      <button onClick={() => onDelete(id)}>Ta bort aktivitet</button>
-    </li>
+    <div className="activity">
+      <div className="content">
+        <span>{activity.type}</span>
+        <span>{activity.name}</span>
+        <span>{activity.date}</span>
+        <span>{activity.location}</span>
+      </div>
+      <div className="buttons">
+        <button onClick={() => {deleteActivity(activity.id)}}>Radera</button>
+        <button onClick={() => {editActivity(activity.id)}}>Redigera</button>
+      </div>
+    </div>
   );
 }
 
