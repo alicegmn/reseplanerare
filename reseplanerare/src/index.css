@@ -1,0 +1,201 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #f9f9f9;
+}
+
+.App {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  overflow-x: hidden;
+}
+
+.header {
+  margin: 0;
+  padding: 5%;
+  flex: 30%;
+  background-color: pink;
+  width: 100%;
+  height: 180px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  z-index: 10;
+}
+
+.activityForm {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.activityForm input,
+.activityForm select,
+.activityForm button {
+  flex: 1 1 18%;
+  min-width: 150px;
+  height: 40px;
+  padding: 0 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.activityForm input:focus,
+.activityForm select:focus,
+.activityForm button:focus {
+  border-color: hotpink;
+  box-shadow: 0 4px 8px rgba(255, 105, 180, 0.3);
+}
+
+.activityForm button {
+  background-color: hotpink;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.activityForm button:hover {
+  background-color: #ff66b2;
+}
+
+.activityList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  width: 100%;
+  max-width: 1200px;
+  padding: 200px 20px 20px;
+  box-sizing: border-box;
+}
+
+.activity {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: left;
+  width: 100%;
+  height: auto;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+}
+
+.activity .content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+}
+
+.activity .content span {
+  font-size: 14px;
+  color: #333;
+  line-height: 1.4;
+}
+
+.activity .buttons {
+  display: flex;
+  gap: 10px; /* Mellanrum mellan knapparna */
+  margin-top: 10px;
+}
+
+.activity button {
+  flex: 1;
+  border: none;
+  border-radius: 5px;
+  padding: 8px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.activity button:focus {
+  outline: none;
+}
+
+.activity .delete-button {
+  background-color: #ff4d4d;
+  color: #fff;
+}
+
+.activity .delete-button:hover {
+  background-color: #ff1a1a;
+  transform: scale(1.05);
+}
+
+.activity .edit-button {
+  background-color: #4caf50;
+  color: #fff;
+}
+
+.activity .edit-button:hover {
+  background-color: #45a049;
+  transform: scale(1.05);
+}
+
+.footer {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+  background-color: pink;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  font-weight: bold;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  padding: 1rem;
+}
+
+.footer:hover {
+  transform: scale(1.1);
+}
+
+.footer a {
+  color: hotpink;
+  text-decoration: none;
+}
+
+.error-message {
+  color: black;
+  font-style: oblique;
+  font-size: 30px;
+  margin-top: 5px;
+}
+
+@media (max-width: 768px) {
+  .activityForm {
+    margin-top: auto;
+  }
+}
