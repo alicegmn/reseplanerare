@@ -16,7 +16,6 @@ Följ dessa steg för att starta applikationen lokalt med terminalen:
    cd reseplanerare
    ```
 
-
 3. **Installera beroenden**
    På grund av att det finns en `package-lock.json`, kör följande kommando:
 
@@ -39,7 +38,7 @@ Följ dessa steg för att starta applikationen lokalt med terminalen:
 
 # Reseplaneraren v2.0
 
-Reseplaneraren v2.0 är en interaktiv React-applikation som gör det enkelt att organisera resor och aktiviteter. 
+Reseplaneraren v2.0 är en interaktiv React-applikation som gör det enkelt att organisera resor och aktiviteter.
 
 ## Funktioner
 
@@ -55,25 +54,28 @@ Reseplaneraren v2.0 är en interaktiv React-applikation som gör det enkelt att 
 ## Reflektion kring användningen av `useState` och `useEffect`
 
 ### **Användning av `useState`**
+
 `useState` används för att hantera lokalt state i applikationen:
 
-- **Formulärdata**: Varje fält i formuläret hanteras med `useState` för att uppdatera dess värde dynamiskt.
-- **Aktivitetslista**: `activityList` används för att lagra och hantera listan med aktiviteter, inklusive att lägga till, redigera och ta bort aktiviteter.
-- **Felmeddelanden**: En state-variabel används för att visa dynamiska felmeddelanden om användaren försöker skicka in ett tomt formulär.
+- Varje fält i formuläret hanteras med `useState` för att uppdatera dess värde dynamiskt.
+- `activityList` används för att lagra och hantera listan med aktiviteter, inklusive att lägga till, redigera och ta bort aktiviteter.
+- En state-variabel används för att visa dynamiska felmeddelanden om användaren försöker skicka in ett tomt formulär.
 
 ### **Användning av `useEffect`**
+
 `useEffect` används för att utföra effekter som är beroende av state:
 
-- **Laddning av data från `localStorage`**: Vid första renderingen hämtas `activityList` från `localStorage`.
-- **Sparande till `localStorage`**: Varje gång `activityList` ändras, sparas den automatiskt till `localStorage`.
-- **Validering**: `useEffect` används för att logga ändringar i state, vilket underlättar felsökning och spårning av dataflödet.
+- Vid första renderingen hämtas `activityList` från `localStorage`.
+- Varje gång `activityList` ändras, sparas den automatiskt till `localStorage` mha `useEffect`.
+- `useEffect` används för att logga ändringar i state, vilket underlättar felsökning och spårning av dataflödet.
 
 ---
 
-### **Vad vi har lärt oss**
-- **State Management med hooks**: `useState` är kraftfullt för att hantera lokalt state, men kräver att man är noggrann med att inte mutera state direkt.
-- **Effekthantering**: `useEffect` är ett effektivt sätt att hantera sidoeffekter som att synkronisera state med `localStorage`.
-- **Strukturering av React-appar**: Separera logik i komponenter för att hålla koden lättläst och underhållbar.
+### **Vad jag har lärt mig**
+
+- `useState` är kraftfullt för att hantera lokalt state, men kräver att man är noggrann med att inte mutera state direkt.
+- `useEffect` är ett effektivt sätt att hantera sidoeffekter som att synkronisera state med `localStorage`.
+- Separera logik i komponenter för att hålla koden lättläst och underhållbar.
 
 ---
 
@@ -97,3 +99,4 @@ Reseplaneraren v2.0 är en interaktiv React-applikation som gör det enkelt att 
     interfaces.ts         // Typer och gränssnitt
   App.tsx                 // Huvudkomponent för applikationen
   index.tsx               // Inmatningsfil för React
+```
