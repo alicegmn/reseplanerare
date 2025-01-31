@@ -1,14 +1,16 @@
-import "./index.css";
+import { Outlet } from "react-router-dom";
+import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
-import ActivityForm from "./components/ActivityForm/ActivityForm";
+import "./index.css";
 
-const App = () => {
+function App() {
   return (
-    <div className="App">
-      <ActivityForm />
+    <>
+      <Header />
+      <Outlet />
       <Footer />
-    </div>
+    </>
   );
-};
+}
 
 export default App;
